@@ -19,8 +19,8 @@ Kernel based in x64barebones. Arquitectura de las Computadoras subject @ ITBA.
   Execute the following commands on the root project directory:
 
   ```
-    user@linux:$ cd Toolchain
-   user@linux:$ make all
+  user@linux:$ cd Toolchain
+  user@linux:$ make all
   ```
 
 3. Build the Kernel
@@ -28,7 +28,7 @@ Kernel based in x64barebones. Arquitectura de las Computadoras subject @ ITBA.
   From the root project directory run:
 
   ```
-    user@linux:$ make all
+  user@linux:$ make all
   ```
 
 4. Run the Kernel
@@ -36,7 +36,7 @@ Kernel based in x64barebones. Arquitectura de las Computadoras subject @ ITBA.
   From the root project directory run:
 
   ```
-    user@linux:$ ./run.sh
+  user@linux:$ ./run.sh
   ```
 
 ### Authors
