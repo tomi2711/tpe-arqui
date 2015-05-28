@@ -9,10 +9,10 @@ Kernel based in x64barebones. Arquitectura de las Computadoras subject @ ITBA.
 ### Enviroment setup
 
 1. Install the following packages
-..* nasm
-..* qemu
-..* gcc
-..* make
+  * nasm
+  * qemu
+  * gcc
+  * make
 
 2. Build the toolchain
 
