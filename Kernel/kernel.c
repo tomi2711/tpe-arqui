@@ -49,12 +49,15 @@ void * initializeKernelBinary() {
 int main()
 {
 		kinitScreen();
-		kinitRTC();
+		kIdtInit();
+		keyboard_init();
+
+		/*kinitRTC();
 
 		kputString("Tomi De Lucca\n");
 		ncPrintDec(kgetHour());
 		kputChar(':');
-		ncPrintDec(kgetMinute());
+		ncPrintDec(kgetMinute());*/
 
 		((EntryPoint)shellCodeModuleAddress)();
 

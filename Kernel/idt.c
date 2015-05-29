@@ -1,22 +1,32 @@
 #include "idt.h"
 
-struct IDT_entry IDT[IDT_SIZE];
-struct IDTDesc idtDescriptor;
-
 void kIdtInit(void) {
+
+  struct IDT_entry IDT[IDT_SIZE];
+  struct IDTDesc idt_desc;
 
   unsigned long keyboard_address;
   unsigned long idt_address;
+  //unsigned long idt_ptr[2];
 
   /* populate IDT entry of keyboard's interrupt */
-  	keyboard_address = (unsigned long)keyboard_handler;
+  	/*keyboard_address = (unsigned long)keyboard_handler;
   	IDT[0x21].offset_lowerbits = keyboard_address & 0x000000ff;
   	IDT[0x21].selector = KERNEL_CODE_SEGMENT_OFFSET;
   	IDT[0x21].zero = 0;
   	IDT[0x21].type_attr = INTERRUPT_GATE;
-  	IDT[0x21].offset_middlebits = (keyboard_address & 0x0000ff00) >> 16;
+  	IDT[0x21].offset_middlebits = (keyboard_address & 0x0000ff00) >> 8;
     IDT[0x21].offset_higherbits = (keyboard_address & 0xffff0000) >> 16;
-    IDT[0x21].zeroo = 0;
+    IDT[0x21].zeroo = 0;*/
+
+    keyboard_address = (unsigned long)keyboard_handler;
+  	IDT[0x80].offset_lowerbits = keyboard_address & 0x000000000000ffff;
+  	IDT[0x80].selector = KERNEL_CODE_SEGMENT_OFFSET;
+  	IDT[0x80].zero = 0;
+  	IDT[0x80].type_attr = INTERRUPT_GATE;
+  	IDT[0x80].offset_middlebits = (keyboard_address & 0x00000000ffff0000) >> 16;
+    IDT[0x80].offset_higherbits = (keyboard_address & 0xffffffff00000000) >> 32;
+    IDT[0x80].zeroo = 0;
 
   /*     Ports
   	*	 PIC1	PIC2
@@ -51,16 +61,30 @@ void kIdtInit(void) {
   kout(0xA1 , 0xff);
 
   idt_address = (unsigned long) IDT;
+  /*idt_ptr[0] = (sizeof (struct IDT_entry) * IDT_SIZE) + ((idt_address & 0x0000ffffffffffff) << 16);
+  idt_ptr[1] = idt_address >> 48;*/
 
-  idtDescriptor.limit = (sizeof(struct IDT_entry) * IDT_SIZE) - 1;
-  idtDescriptor.offset = idt_address;
+  idt_desc.limit = (sizeof(struct IDT_entry) * IDT_SIZE);
+  idt_desc.offset= idt_address;
 
-  //load_idt(&idtDescriptor);
+  load_idt(&idt_desc);
+
+  /*idtDescriptor->limit = (sizeof(struct IDT_entry) * IDT_SIZE);
+  idtDescriptor->offset = idt_address;
+
+  struct IDTDesc* tomi = load_idt(idtDescriptor);
+
+  ncPrintHex(*idtDescriptor);
+  ncNewline();
+  ncPrintHex(*tomi);*/
+
   sti_enable();
+
+  runInt80();
 }
 
 void keyboard_init(){
-  kout(0x21 , 0xFD);
+  kout(0x21 , 0xFF);
 }
 
 void keyboard_handler_main(void) {
@@ -68,10 +92,10 @@ void keyboard_handler_main(void) {
   //unsigned char status;
   //char keycode;
 
-  kout(0x20, 0x20);
-  kout(0x20, 0xA0);
-
   kputString("Mac");
+
+  /*kout(0x20, 0x20);
+  kout(0xA0, 0x20);*/
 
   //status = kin(KEYBOARD_STATUS_PORT);
 

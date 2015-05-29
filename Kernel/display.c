@@ -28,7 +28,7 @@ void kupdateCursorOnScreen(unsigned int position){
 void kinitScreen() {
     kclearScreen();
     ksetCursorStyle(CURSOR_BLOCK);
-    kupdateCursorOnScreen(10);
+    kupdateCursorOnScreen(0);
 }
 
 // Get the character at position

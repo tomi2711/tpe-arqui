@@ -10,8 +10,9 @@
 #define __TomiOS__interrupt__
 
 extern void keyboard_handler(void);
-extern void load_idt(struct IDTDesc *idt_ptr);
+extern void load_idt(unsigned long *idt_ptr);
 extern void sti_enable();
 extern void cli_enable();
+extern void runInt80();
 
 #endif /* defined(__TomiOS__interrupt__) */
