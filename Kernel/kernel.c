@@ -50,7 +50,6 @@ int main()
 {
 		kinitScreen();
 		kIdtInit();
-		keyboard_init();
 
 		/*kinitRTC();
 

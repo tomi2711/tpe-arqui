@@ -9,10 +9,15 @@
 #ifndef __TomiOS__interrupt__
 #define __TomiOS__interrupt__
 
+#include "types.h"
+
+extern void kEnableInterrupts();
+extern void kDisableInterrupts();
+extern void kSetHandler(byte index, ddword handler, ddword idtStart);
+extern void kGetIDTR(IDTR* idtr);
+
+// Handlers
+
 extern void keyboard_handler(void);
-extern void load_idt(unsigned long *idt_ptr);
-extern void sti_enable();
-extern void cli_enable();
-extern void runInt80();
 
 #endif /* defined(__TomiOS__interrupt__) */
