@@ -51,12 +51,6 @@ int main()
 		kinitScreen();
 		kIdtInit();
 
-		/*kinitRTC();
-
-		kputString("Tomi De Lucca\n");
-		ncPrintDec(kgetHour());
-		kputChar(':');
-		ncPrintDec(kgetMinute());*/
 
 		((EntryPoint)shellCodeModuleAddress)();
 
