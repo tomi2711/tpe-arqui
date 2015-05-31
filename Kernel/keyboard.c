@@ -1,5 +1,7 @@
 #include "keyboard.h"
 
+int shiftDown = 0;
+
 void kKeyboardInit(){
   kout(0x21 , 0xFD);
 }
@@ -19,5 +21,5 @@ void keyboard_handler_main(void) {
   if (status & 0x01) {
   		keycode = kin(KEYBOARD_DATA_PORT);
   }
-  
+
 }
