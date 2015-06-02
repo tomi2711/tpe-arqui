@@ -6,7 +6,7 @@
 #define MAXPRINTABLE 57
 #define NOTPRINTABLE 0X0
 
-byte keyMap[MAXPRINTABLE][2] = {
+char keyMap[MAXPRINTABLE][2] /*= {
     {NOTPRINTABLE,NOTPRINTABLE},
     {'1','!'},
     {'2','@'},
@@ -64,6 +64,6 @@ byte keyMap[MAXPRINTABLE][2] = {
     {NOTPRINTABLE,NOTPRINTABLE},  // PTR SCREEN
     {NOTPRINTABLE,NOTPRINTABLE},  // ALT
     {0x20,0x20}                     // SPACE
-};
+}*/;
 
 #endif

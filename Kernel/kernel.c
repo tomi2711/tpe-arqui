@@ -50,6 +50,7 @@ int main()
 {
 		kinitScreen();
 		kIdtInit();
+		kKeyboardInit();
 
 
 		((EntryPoint)shellCodeModuleAddress)();

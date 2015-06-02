@@ -158,8 +158,19 @@ void kforwardCursor(){
 
 // Puts a character at the current cursor position and moves the cursor to the next position - PUBLIC
 void kputChar(char c){
-    ksetDisplay(cursorI, cursorJ, c);
-    kforwardCursor();
+    if (c == '\n'){
+        kputNewLine();
+    } else if(c == '\t'){
+      ksetDisplay(cursorI, cursorJ, ' ');
+      kforwardCursor();
+      ksetDisplay(cursorI, cursorJ, ' ');
+      kforwardCursor();
+      ksetDisplay(cursorI, cursorJ, ' ');
+      kforwardCursor();
+    } else{
+        ksetDisplay(cursorI, cursorJ, c);
+        kforwardCursor();
+    }
 }
 
 // Puts a string of characters on screen - PUBLIC
@@ -169,13 +180,8 @@ void kputString(char* str){
     int length = kstrlen(str);
 
     for(i = 0;i<length;i++){
-        if (str[i] == '\n'){
-            kputNewLine();
-        } else {
-            kputChar(str[i]);
-        }
+        kputChar(str[i]);
     }
-
 }
 
 // Gets the screen dimensions in number of lines
