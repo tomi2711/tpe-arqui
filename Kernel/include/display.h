@@ -41,6 +41,7 @@ void kscrollDown(int n);
 // Handle text cursor
 void kputNewLine();
 void kforwardCursor();
+void kbackspaceCursor();
 void kcursorTick();
 
 // Insert text
