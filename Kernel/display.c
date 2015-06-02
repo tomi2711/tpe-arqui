@@ -165,6 +165,11 @@ void kbackspaceCursor(){
         // No es la primera linea
         if(cursorJ > 0){
             kmoveCursor(screenWidth-1, cursorJ-1);
+
+            while ((cursorI > 0) && (kgetCharAtPosition(cursorI-1,cursorJ) == ' ')){
+              kmoveCursor(cursorI-1,cursorJ);
+            }
+            
             ksetDisplay(cursorI, cursorJ, ' ');
         }
 
