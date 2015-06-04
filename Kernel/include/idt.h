@@ -11,6 +11,7 @@
 
 #include "defines.h"
 #include "interrupt.h"
+#include "lib.h"
 
 void kIDTInitialize(void);
 
