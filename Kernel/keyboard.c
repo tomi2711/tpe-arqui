@@ -1,106 +1,110 @@
 #include "keyboard.h"
-#include "keymap.h"
 
-int shiftDown = 0;
+unsigned char keyboardMap[2][TOTAL_KEYS];
+kKBStatus keyboardStatus;
+kKBBuffer keyboardBuffer;
 
-void kKeyboardInit(){
-  kout(0x21 , 0xFD);
-  byte auxkeyMap[MAXPRINTABLE][2] = {
-      {NOTPRINTABLE,NOTPRINTABLE},
-      {'1','!'},
-      {'2','@'},
-      {'3','#'},
-      {'4','$'},
-      {'5','%'},
-      {'6','&'},
-      {'7','/'},
-      {'8','('},
-      {'9',')'},
-      {'0','='},
-      {'\'','?'},
-      {'<','>'},
-      {'\b','\b'},
-      {'\t','\t'},
-      {'q','Q'},
-      {'w','W'},
-      {'e','E'},
-      {'r','R'},
-      {'t','T'},
-      {'y','Y'},
-      {'u','U'},
-      {'i','I'},
-      {'o','O'},
-      {'p','P'},
-      {'+','['},
-      {'*',']'},
-      {'\n','\n'},
-      {NOTPRINTABLE,NOTPRINTABLE},  // CTRL
-      {'a','A'},
-      {'s','S'},
-      {'d','D'},
-      {'f','F'},
-      {'g','G'},
-      {'h','H'},
-      {'j','J'},
-      {'k','K'},
-      {'l','L'},
-      {NOTPRINTABLE,NOTPRINTABLE},  // ñ
-      {'{','{'},
-      {'}','}'},
-      {NOTPRINTABLE,NOTPRINTABLE},  // SHIFT IZQ
-      {'\\','|'},
-      {'z','Z'},
-      {'x','X'},
-      {'c','C'},
-      {'v','V'},
-      {'b','B'},
-      {'n','N'},
-      {'m','M'},
-      {',',';'},
-      {'.',':'},
-      {'-','_'},
-      {NOTPRINTABLE,NOTPRINTABLE},  // SHIFT DER
-      {NOTPRINTABLE,NOTPRINTABLE},  // PTR SCREEN
-      {NOTPRINTABLE,NOTPRINTABLE},  // ALT
-      {0x20,0x20}                     // SPACE
+void kKBInitialize(){
+
+  byte auxMap[2][TOTAL_KEYS] = {
+    {
+      0, NOT_PRINTABLE,'1','2','3','4','5','6','7','8','9','0','\'','<','\b',
+      '\t','q','w','e','r','t','y','u','i','o','p','+','*','\n',
+      NOT_PRINTABLE,'a','s','d','f','g','h','j','k','l',NOT_PRINTABLE,'{','}',
+      NOT_PRINTABLE, '\\', 'z','x','c','v','b','n','m',',','.','-',NOT_PRINTABLE,NOT_PRINTABLE,
+      NOT_PRINTABLE,SPACEBAR,NOT_PRINTABLE
+    },
+    {
+      0, NOT_PRINTABLE,'!','@','#','$','%','&','/','(',')','=','?','>','\b',
+      '\t','Q','W','E','R','T','Y','U','I','O','P','[',']','\n',
+      NOT_PRINTABLE,'A','S','D','F','G','H','J','K','L',NOT_PRINTABLE,'{','}',
+      NOT_PRINTABLE, '|', 'Z','X','C','V','B','N','M',';',':','_',NOT_PRINTABLE,NOT_PRINTABLE,
+      NOT_PRINTABLE,SPACEBAR,NOT_PRINTABLE
+    }
   };
 
-  for(int i=0;i<MAXPRINTABLE;i++)
-    for (int j=0; j<2; j++) {
-      keyMap[i][j] = auxkeyMap[i][j];
+  int i;
+
+  for(i=0;i<2;i++){
+    int j;
+    for (j=0; j<TOTAL_KEYS; j++) {
+      keyboardMap[i][j] = auxMap[i][j];
+    }
+  }
+
+  for (i = 0; i<KEYBOARD_BUFFER_SIZE; i++){
+      keyboardBuffer.buffer[i] = EMPTY;
+  }
+
+}
+
+bool kKBBufferIsEmpty(){
+    return (keyboardBuffer.buffer[keyboardBuffer.readIndex] == EMPTY);
+}
+
+bool kKBIsAlpha(unsigned char keycode){
+    return  ((keycode >= 0x10 && keycode <= 0x19) || (keycode >= 0x1E && keycode <= 0x26) || (keycode >= 0x2C && keycode <= 0x32));
+}
+
+void kKBInsertKey(unsigned char asciiValue){
+
+    keyboardBuffer.buffer[keyboardBuffer.writeIndex++] = asciiValue;
+
+    if(keyboardBuffer.writeIndex == KEYBOARD_BUFFER_SIZE){
+        keyboardBuffer.writeIndex = 0;
     }
 }
 
-void keyboard_handler_main(void) {
+unsigned char kKBGetKey(){
 
-  unsigned char status;
-  unsigned char keycode;
+    unsigned char key = keyboardBuffer.buffer[keyboardBuffer.readIndex];
+    keyboardBuffer.buffer[keyboardBuffer.readIndex++] = EMPTY;
 
-  kout(0x20, 0x20);
-  kout(0xA0, 0x20);
+    if (keyboardBuffer.readIndex == KEYBOARD_BUFFER_SIZE){
+        keyboardBuffer.readIndex = 0;
+    }
 
-  status = kin(KEYBOARD_STATUS_PORT);
+    return key;
+}
 
-  if (status & 0x01) {
+void kKBKeyReceived(unsigned char keycode){
 
-  		keycode = kin(KEYBOARD_DATA_PORT);
+    switch(keycode){
+       case CAPS_LOCK:
+          keyboardStatus.capsLockEnabled = !keyboardStatus.capsLockEnabled;
+          break;
+       case LS_PRESSED:
+          keyboardStatus.shiftEnabled = TRUE;
+          break;
+       case LS_RELEASED:
+          keyboardStatus.shiftEnabled = FALSE;
+          break;
+       case RS_PRESSED:
+          keyboardStatus.shiftEnabled = TRUE;
+          break;
+       case RS_RELEASED:
+          keyboardStatus.shiftEnabled = FALSE;
+          break;
+        default:
 
-      if(keycode & 0x80) {                              //key pressed
-          if(keycode == LSUP || keycode == RSUP)
-              shiftDown = 0;
+          if(!(keycode & KEY_RELEASED)){
 
-      } else {                                          //key released
+            if(!(keycode == NOT_PRINTABLE)){
 
-          if(keycode == LSDOWN || keycode == RSDOWN){
-              shiftDown = 1;
-              return;
+              bool isAplha = kKBIsAlpha(keycode);
+              bool alternate = (isAplha && keyboardStatus.capsLockEnabled);
+
+              if(keyboardStatus.shiftEnabled){
+                    alternate = !alternate;
+              }
+
+              unsigned char asciiValue = keyboardMap[alternate][keycode];
+              kKBInsertKey(asciiValue);
+            }
+
           }
 
-          unsigned char character = keyMap[keycode-1][shiftDown];
+          break;
+    }
 
-          if(character != NOTPRINTABLE){
-              kputChar(character);
-          }
-      }
-  }
 }

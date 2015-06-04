@@ -3,9 +3,10 @@
 #include <lib.h>
 #include <moduleLoader.h>
 #include <naiveConsole.h>
-#include <display.h>
+#include "display.h"
 #include "idt.h"
 #include "rtc.h"
+#include "keyboard.h"
 
 extern uint8_t text;
 extern uint8_t rodata;
@@ -48,10 +49,17 @@ void * initializeKernelBinary() {
 
 int main()
 {
-		kinitScreen();
-		kIdtInit();
-		kKeyboardInit();
+		kInitializeDisplay();
+		kIDTInitialize();
+		kKBInitialize();
 
+		while(1){
+
+				while(!kKBBufferIsEmpty()){
+					kputChar(kKBGetKey());
+				};
+
+		}
 
 		((EntryPoint)shellCodeModuleAddress)();
 

@@ -3,9 +3,9 @@ GLOBAL kDisableInterrupts
 GLOBAL kSetHandler
 GLOBAL kGetIDTR
 
-GLOBAL keyboard_handler
+GLOBAL keyboardInterruptHandler
 
-EXTERN keyboard_handler_main
+EXTERN keyboardHandler
 
 section .text
 
@@ -38,6 +38,10 @@ kSetHandler:
 
 ; Handlers
 
-keyboard_handler:
-  call    keyboard_handler_main
+keyboardInterruptHandler:
+	pushaq
+  call    keyboardHandler
+	mov al, 0x20
+	out 0x20, al
+	popaq
   iretq

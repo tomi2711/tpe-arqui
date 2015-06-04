@@ -11,6 +11,9 @@ int screenHegiht = SCREEN_HEIGHT;
 int cursorI = 0;
 int cursorJ = 0;
 
+int backspaceLimitI = 0;
+int backspaceLimitJ = 0;
+
 // Updates cursor on screen
 
 void kupdateCursorOnScreen(unsigned int position){
@@ -25,7 +28,7 @@ void kupdateCursorOnScreen(unsigned int position){
 // Trigger ticking
 
 // Initializes screen with other than default paramteters - PUBLIC
-void kinitScreen() {
+void kInitializeDisplay() {
     kclearScreen();
     ksetCursorStyle(CURSOR_BLOCK);
     kupdateCursorOnScreen(0);
@@ -159,6 +162,9 @@ void kforwardCursor(){
 // Move cursor to next position - PUBLIC
 void kbackspaceCursor(){
 
+    if(cursorI<=backspaceLimitI && cursorJ<=backspaceLimitJ)
+      return;
+
     // Primer caracter de la linea
     if(cursorI == 0){
 
@@ -169,7 +175,7 @@ void kbackspaceCursor(){
             while ((cursorI > 0) && (kgetCharAtPosition(cursorI-1,cursorJ) == ' ')){
               kmoveCursor(cursorI-1,cursorJ);
             }
-            
+
             ksetDisplay(cursorI, cursorJ, ' ');
         }
 
@@ -185,6 +191,7 @@ void kputChar(char c){
         kputNewLine();
         kforwardCursor();
         kbackspaceCursor();
+        ksetBackspaceLimit();
     } else if(c == '\t'){
       ksetDisplay(cursorI, cursorJ, ' ');
       kforwardCursor();
@@ -232,4 +239,9 @@ void ksetDefaultTextColor(Color color){
 void ksetCursorStyle(unsigned char style){
     kout(0x3D4, 0x0A);
     kout(0x3D5, (unsigned char)(style&0xFF));
+}
+
+void ksetBackspaceLimit(){
+    backspaceLimitI = cursorI;
+    backspaceLimitJ = cursorJ;
 }

@@ -1,10 +1,13 @@
 #ifndef __TomiOS__keyboard__
 #define __TomiOS__keyboard__
 
-#define KEYBOARD_DATA_PORT 0x60
-#define KEYBOARD_STATUS_PORT 0x64
+#include "defines.h"
 
-void kKeyboardInit();
-void keyboard_handler_main(void);
+void kKBInitialize();
+void kKBKeyReceived(unsigned char keycode);
+void kKBInsertKey(unsigned char asciiValue);
+unsigned char kKBGetKey();
+bool kKBIsAlpha(unsigned char keycode);
+bool kKBBufferIsEmpty();
 
 #endif

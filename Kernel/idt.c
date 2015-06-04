@@ -1,14 +1,15 @@
 #include "idt.h"
 
-#pragma pack(1)
-
 IDTR idtr;
 
-void kIdtInit(void) {
+void kIDTInitialize(void) {
 
     kGetIDTR(&idtr);
+    kDisableInterrupts();
 
-    kSetHandler(0x21, &keyboard_handler, idtr.base);
+    kSetHandler(0x21, &keyboardInterruptHandler, idtr.base);
 
     kEnableInterrupts();
+
+    kout(PIC_DATA_PORT, 0xFD);  // Set interrupt mask to only allow keyboard
 }

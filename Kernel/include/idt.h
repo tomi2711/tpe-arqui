@@ -9,12 +9,9 @@
 #ifndef __TomiOS__idt__
 #define __TomiOS__idt__
 
+#include "defines.h"
 #include "interrupt.h"
-#include "types.h"
-#include "keyboard.h"
 
-#define IDT_SIZE 256
-
-void kIdtInit(void);
+void kIDTInitialize(void);
 
 #endif /* defined(__TomiOS__idt__) */
