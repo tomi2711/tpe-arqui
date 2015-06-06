@@ -75,4 +75,10 @@ typedef enum COLOR {
         WHITE
 } Color;
 
+typedef enum SYSTEM_CALLS {
+        WRITE,
+        READ,
+        CLEAR_SCREEN
+} SYSCALLS;
+
 #endif /* defined(__TomiOS__types__) */

@@ -118,3 +118,32 @@ void kitoa_d(int n, char s[])
      s[i] = '\0';
      kreverse(s);
 }
+
+void kWrite(char* str, int length){
+
+		int i = 0;
+
+		while (length>0) {
+				kputChar(str[i++]);
+				length--;
+		}
+
+}
+
+void kRead(char* buffer, char delimiter){
+
+		char c;
+		int i = 0;
+
+		do {
+
+			if(!kKBBufferIsEmpty()){
+					c = kKBGetKey();
+					buffer[i++] = c;
+			}
+
+		} while (c != delimiter);
+
+		buffer[i] = 0;
+
+}

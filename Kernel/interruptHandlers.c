@@ -2,21 +2,35 @@
 
 void keyboardHandler(void) {
 
-  unsigned char status;
-  unsigned char keycode;
+        unsigned char status;
+        unsigned char keycode;
 
-  status = kin(KEYBOARD_STATUS_PORT);
+        status = kin(KEYBOARD_STATUS_PORT);
 
-  if (status && 0x01) {
+        if (status && 0x01) {
 
-  	keycode = kin(KEYBOARD_DATA_PORT);
+                keycode = kin(KEYBOARD_DATA_PORT);
 
-    kKBKeyReceived(keycode);
+                kKBKeyReceived(keycode);
 
-  }
+        }
 }
 
-void kWriteHandler(const char* str, int length){
-    kputString(str);
-    ksetBackspaceLimit();
+void kSyscallHandler(ddword a, ddword b, ddword c, ddword d){
+
+        switch (a) {
+        case WRITE:
+                kWrite((char*)c, (int) d);
+                ksetBackspaceLimit();
+                break;
+        case READ:
+                kRead((char*)c, (char) d);
+                break;
+        case CLEAR_SCREEN:
+                kclearScreen();
+                break;
+        default:
+                break;
+        }
+
 }
