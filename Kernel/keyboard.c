@@ -77,8 +77,8 @@ void kKBKeyReceived(unsigned char keycode){
                 keyboardStatus.shiftEnabled = FALSE;
         else if(!(keycode & KEY_RELEASED)) {
 
-                bool isAplha = kKBIsAlpha(keycode);
-                bool alternate = (isAplha && keyboardStatus.capsLockEnabled);
+                bool isAlpha = kKBIsAlpha(keycode);
+                bool alternate = (isAlpha && keyboardStatus.capsLockEnabled);
 
                 if(keyboardStatus.shiftEnabled) {
                         alternate = !alternate;
@@ -87,6 +87,7 @@ void kKBKeyReceived(unsigned char keycode){
                 unsigned char asciiValue = keyboardMap[alternate][keycode];
 
                 if(!(asciiValue == NOT_PRINTABLE))
+                        kputChar(asciiValue);
                         kKBInsertKey(asciiValue);
 
         }

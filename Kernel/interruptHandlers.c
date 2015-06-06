@@ -15,3 +15,8 @@ void keyboardHandler(void) {
 
   }
 }
+
+void kWriteHandler(const char* str, int length){
+    kputString(str);
+    ksetBackspaceLimit();
+}

@@ -1,5 +1,5 @@
 #include <stdint.h>
-//#include <string.h>
+#include <string.h>
 #include <lib.h>
 #include <moduleLoader.h>
 #include <naiveConsole.h>
@@ -53,15 +53,9 @@ int main()
 		kIDTInitialize();
 		kKBInitialize();
 
-		while(1){
+		int tomi = ((EntryPoint)shellCodeModuleAddress)();
 
-				while(!kKBBufferIsEmpty()){
-					kputChar(kKBGetKey());
-				};
+		ncPrintHex(tomi);
 
-		}
-
-		((EntryPoint)shellCodeModuleAddress)();
-
-	return 0;
+		return 0;
 }

@@ -8,6 +8,8 @@ void kIDTInitialize(void) {
         kDisableInterrupts();
 
         kSetHandler(0x21, (ddword)&keyboardInterruptHandler, idtr.base);
+        kSetHandler(0x70, (ddword)&writeHandler, idtr.base);
+        kSetHandler(0x90, (ddword)&clearScreenHandler, idtr.base);
 
         kEnableInterrupts();
 

@@ -4,8 +4,13 @@ GLOBAL kSetHandler
 GLOBAL kGetIDTR
 
 GLOBAL keyboardInterruptHandler
+GLOBAL clearScreenHandler
+GLOBAL writeHandler
 
 EXTERN keyboardHandler
+EXTERN kclearScreen
+EXTERN kWriteHandler
+EXTERN ncPrintDec
 
 section .text
 
@@ -45,3 +50,15 @@ keyboardInterruptHandler:
 	out 0x20, al
 	popaq
   iretq
+
+clearScreenHandler:
+	;pushaq
+	call  	kclearScreen
+	;popaq
+	iretq
+
+writeHandler:
+	;pushaq
+	call kWriteHandler
+	;popaq
+	iretq

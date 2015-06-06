@@ -1,4 +1,6 @@
 #include <stdint.h>
+#include "libc.h"
+#include "liba.h"
 
 extern char bss;
 extern char endOfBinary;
@@ -8,6 +10,8 @@ void * memset(void * destiny, int32_t c, uint64_t length);
 int main() {
 	//Clean BSS
 	memset(&bss, 0, &endOfBinary - &bss);
+
+	printString("tomi$: ");
 
 	while(1){
 

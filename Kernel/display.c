@@ -105,6 +105,8 @@ void kclearScreen(void){
                 kclearRow(i);
         }
         kmoveCursor(0, 0);
+        backspaceLimitI = 0;
+        backspaceLimitJ = 0;
 }
 
 void kcopyRowToRow(int originalRow, int destinationRow){

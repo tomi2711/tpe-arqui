@@ -19,5 +19,7 @@ extern void kGetIDTR(IDTR* idtr);
 // Handlers
 
 extern void keyboardInterruptHandler(void);
+extern void writeHandler();
+extern void clearScreenHandler();
 
 #endif /* defined(__TomiOS__interrupt__) */
