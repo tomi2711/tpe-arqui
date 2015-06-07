@@ -1,36 +1,27 @@
 #include "keyboard.h"
 
-unsigned char keyboardMap[2][TOTAL_KEYS];
 kKBStatus keyboardStatus;
 kKBBuffer keyboardBuffer;
+unsigned char keyboardMap[2][TOTAL_KEYS] = {
+        {
+                0, NOT_PRINTABLE,'1','2','3','4','5','6','7','8','9','0','\'','<','\b',
+                '\t','q','w','e','r','t','y','u','i','o','p','+','*','\n',
+                NOT_PRINTABLE,'a','s','d','f','g','h','j','k','l',NOT_PRINTABLE,'{','}',
+                NOT_PRINTABLE, '\\', 'z','x','c','v','b','n','m',',','.','-',NOT_PRINTABLE,NOT_PRINTABLE,
+                NOT_PRINTABLE,SPACEBAR,NOT_PRINTABLE
+        },
+        {
+                0, NOT_PRINTABLE,'!','@','#','$','%','&','/','(',')','=','?','>','\b',
+                '\t','Q','W','E','R','T','Y','U','I','O','P','[',']','\n',
+                NOT_PRINTABLE,'A','S','D','F','G','H','J','K','L',NOT_PRINTABLE,'{','}',
+                NOT_PRINTABLE, '|', 'Z','X','C','V','B','N','M',';',':','_',NOT_PRINTABLE,NOT_PRINTABLE,
+                NOT_PRINTABLE,SPACEBAR,NOT_PRINTABLE
+        }
+};
 
 void kKBInitialize(){
 
-        byte auxMap[2][TOTAL_KEYS] = {
-                {
-                        0, NOT_PRINTABLE,'1','2','3','4','5','6','7','8','9','0','\'','<','\b',
-                        '\t','q','w','e','r','t','y','u','i','o','p','+','*','\n',
-                        NOT_PRINTABLE,'a','s','d','f','g','h','j','k','l',NOT_PRINTABLE,'{','}',
-                        NOT_PRINTABLE, '\\', 'z','x','c','v','b','n','m',',','.','-',NOT_PRINTABLE,NOT_PRINTABLE,
-                        NOT_PRINTABLE,SPACEBAR,NOT_PRINTABLE
-                },
-                {
-                        0, NOT_PRINTABLE,'!','@','#','$','%','&','/','(',')','=','?','>','\b',
-                        '\t','Q','W','E','R','T','Y','U','I','O','P','[',']','\n',
-                        NOT_PRINTABLE,'A','S','D','F','G','H','J','K','L',NOT_PRINTABLE,'{','}',
-                        NOT_PRINTABLE, '|', 'Z','X','C','V','B','N','M',';',':','_',NOT_PRINTABLE,NOT_PRINTABLE,
-                        NOT_PRINTABLE,SPACEBAR,NOT_PRINTABLE
-                }
-        };
-
         int i;
-
-        for(i=0; i<2; i++) {
-                int j;
-                for (j=0; j<TOTAL_KEYS; j++) {
-                        keyboardMap[i][j] = auxMap[i][j];
-                }
-        }
 
         for (i = 0; i<KEYBOARD_BUFFER_SIZE; i++) {
                 keyboardBuffer.buffer[i] = EMPTY;
@@ -86,9 +77,10 @@ void kKBKeyReceived(unsigned char keycode){
 
                 unsigned char asciiValue = keyboardMap[alternate][keycode];
 
-                if(!(asciiValue == NOT_PRINTABLE))
+                if(!(asciiValue == NOT_PRINTABLE)){
                         kputChar(asciiValue);
                         kKBInsertKey(asciiValue);
+                }
 
         }
 

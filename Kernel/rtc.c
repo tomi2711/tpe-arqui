@@ -1,11 +1,5 @@
 #include "rtc.h"
 
-const char* daysName[] = {"Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"};
-const char* monthsName[] = {"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio", "Agosto","Septiembre", "Octubre", "Noviembre","Diciembre"};
-
-#define RTC_PORT		0x70
-#define RTC_REGISTER_PORT	0x71
-
 void ksetRTCConfig(unsigned int reg, unsigned char bit, unsigned char value){
 	kout(RTC_PORT,reg);
 	unsigned char data = kin(RTC_REGISTER_PORT);
@@ -13,6 +7,16 @@ void ksetRTCConfig(unsigned int reg, unsigned char bit, unsigned char value){
 	kout(RTC_PORT, reg);
 	kout(RTC_REGISTER_PORT,data);
 }
+
+void getCurrentDate(DATE* date){
+	date->second = kgetSecond();
+	date->minute = kgetMinute();
+	date->hour = kgetHour();
+	date->d_month = kgetDayOfMonth();
+	date->d_week = kgetDayOfWeek();
+	date->month = kgetMonth();
+	date->year = kgetYear();
+};
 
 void kinitRTC(){
 	ksetRTCConfig(RTC_SETUP_B,2,1);

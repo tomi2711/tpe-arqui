@@ -1,5 +1,4 @@
 #include <naiveConsole.h>
-#include "display.h"
 
 static uint32_t uintToBase(uint64_t value, char * buffer, uint32_t base);
 
@@ -19,12 +18,17 @@ void ncPrint(const char * string)
 
 void ncPrintChar(char character)
 {
-	kputChar(character);
+	*currentVideo = character;
+	currentVideo += 2;
 }
 
 void ncNewline()
 {
-	kputNewLine();
+	do
+	{
+		ncPrintChar(' ');
+	}
+	while((uint64_t)(currentVideo - video) % (width * 2) != 0);
 }
 
 void ncPrintDec(uint64_t value)
@@ -50,7 +54,11 @@ void ncPrintBase(uint64_t value, uint32_t base)
 
 void ncClear()
 {
-	kclearScreen();
+	int i;
+
+	for (i = 0; i < height * width; i++)
+		video[i * 2] = ' ';
+	currentVideo = video;
 }
 
 static uint32_t uintToBase(uint64_t value, char * buffer, uint32_t base)

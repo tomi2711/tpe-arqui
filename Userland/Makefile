@@ -1,16 +1,16 @@
 include Makefile.inc
 
-all: shellCodeModule shellDataModule
+all: sampleCodeModule sampleDataModule
 
-shellCodeModule:
-	cd shellCodeModule; make
+sampleCodeModule:
+	cd SampleCodeModule; make
 
-shellDataModule:
-	printf "This is sample data." >> shellDataModule.bin && dd if=/dev/zero bs=1 count=1 >> shellDataModule.bin
+sampleDataModule:
+	printf "This is sample data." >> SampleDataModule.bin && dd if=/dev/zero bs=1 count=1 >> SampleDataModule.bin
 
 clean:
-	cd shellCodeModule; make clean
+	cd SampleCodeModule; make clean
 	rm -rf *.bin
 
 
-.PHONY: shellCodeModule all clean
+.PHONY: sampleCodeModule all clean

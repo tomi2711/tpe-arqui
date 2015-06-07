@@ -1,5 +1,5 @@
-#ifndef __TomiOS__defines__
-#define __TomiOS__defines__
+#ifndef __TomiOS__DEFINES__
+#define __TomiOS__DEFINES__
 
 typedef unsigned char bool;
 typedef unsigned char byte;
@@ -78,7 +78,33 @@ typedef enum COLOR {
 typedef enum SYSTEM_CALLS {
         WRITE,
         READ,
-        CLEAR_SCREEN
+        CLEAR_SCREEN,
+        GET_TIME,
+        SET_TIME
 } SYSCALLS;
+
+#define RTC_PORT		0x70
+#define RTC_REGISTER_PORT	0x71
+
+typedef struct U_DATE {
+  unsigned char second;
+  unsigned char minute;
+  unsigned char hour;
+  unsigned char d_week;
+  unsigned char d_month;
+  unsigned char month;
+  unsigned char year;
+} DATE;
+
+enum RTC_CONVERSION {
+	RTC_SECOND = 0,
+	RTC_MINUTE = 2,
+	RTC_HOUR = 4,
+	RTC_D_WEEK = 6,
+	RTC_D_MONTH = 7,
+	RTC_MONTH = 8,
+	RTC_YEAR = 9,
+	RTC_SETUP_B = 0xB
+};
 
 #endif /* defined(__TomiOS__types__) */

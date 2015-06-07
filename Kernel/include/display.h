@@ -1,5 +1,5 @@
-#ifndef __TomiOS__display__
-#define __TomiOS__display__
+#ifndef __TomiOS__DISPLAY__
+#define __TomiOS__DISPLAY__
 
 #include "defines.h"
 #include "lib.h"

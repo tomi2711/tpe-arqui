@@ -1,5 +1,5 @@
-#ifndef __TomiOS__keyboard__
-#define __TomiOS__keyboard__
+#ifndef __TomiOS__KEYBOARD__
+#define __TomiOS__KEYBOARD__
 
 #include "defines.h"
 
