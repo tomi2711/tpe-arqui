@@ -1,5 +1,5 @@
-#ifndef __TomiOS__DEFINES__
-#define __TomiOS__DEFINES__
+#ifndef __TomiOS__DEFINES_U__
+#define __TomiOS__DEFINES_U__
 
 typedef unsigned char bool;
 #define TRUE 1
@@ -35,10 +35,5 @@ typedef struct CommandDesc{
   action handler;
   char* use;
 } CommandDescriptor;
-
-char* daysName[7] = {"Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
-char* monthsName[12] = {"January","February","March","April","May","June","July","August","September","October",
-                      "November","December"};
-
 
 #endif

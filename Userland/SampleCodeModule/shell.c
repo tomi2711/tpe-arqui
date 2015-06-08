@@ -10,6 +10,10 @@ int clear(char* args);
 int help(char* args);
 int time(char* args);
 
+/*char* daysName[7] = {"Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+char* monthsName[12] = {"January","February","March","April","May","June","July","August","September","October",
+                      "November","December"};*/
+
 CommandDescriptor commands[TOTAL_COMMANDS];
 
 void shell(){
@@ -91,7 +95,7 @@ int time(char* args){
   if(strlen(args)==0){
     DATE date;
     getTime(&date);
-    printf("%s %s %d 20%d, %d:%d:%d",daysName[date.d_week],monthsName[date.month],date.d_month,date.year, date.hour, date.minute, date.second);
+    printf("%d/%d/20%d - %d:%d:%d",date.d_month,date.month,date.year, date.hour, date.minute, date.second);
   } else {
     printf("%s is not a time command.", args);
   }
