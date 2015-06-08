@@ -5,9 +5,10 @@ typedef unsigned char bool;
 #define TRUE 1
 #define FALSE 0
 
-#define MAX_INT 32767
+#define TOTAL_COMMANDS 4
 
-#define TOTAL_COMMANDS 3
+#define MAX_COMMAND_LENGTH 30
+#define MAX_ARGUMENTS_LENGTH 80
 
 typedef enum SYSTEM_CALLS {
         WRITE,
@@ -27,12 +28,17 @@ typedef struct U_DATE {
   unsigned char year;
 } DATE;
 
+typedef int (*action)(char*);
+
 typedef struct CommandDesc{
   char* key;
-  char* (*action)(char*);
-  int argc;
+  action handler;
   char* use;
 } CommandDescriptor;
+
+char* days[7] = {"Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+char* months[12] = {"January","February","March","April","May","June","July","August","September","October",
+                      "November","December"};
 
 
 #endif

@@ -15,7 +15,7 @@ void kitoa_d(int n, char s[]);
 void kreverse(char s[]);
 
 void kWrite(char* str, int length);
-void kRead(char* buffer, int delimiter);
+void kRead(char* buffer, int count);
 
 extern void kout(unsigned short port, unsigned char data);
 extern unsigned char kin(unsigned short port);

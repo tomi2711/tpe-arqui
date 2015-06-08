@@ -130,7 +130,7 @@ void kWrite(char* str, int length){
 
 }
 
-void kRead(char* buffer, char delimiter){
+void kRead(char* buffer, int count){
 
 		char c;
 		int i = 0;
@@ -142,8 +142,6 @@ void kRead(char* buffer, char delimiter){
 					buffer[i++] = c;
 			}
 
-		} while (c != delimiter);
-
-		buffer[i-1] = '\0';
+		} while(i<count);
 
 }

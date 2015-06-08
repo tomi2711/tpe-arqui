@@ -131,7 +131,7 @@ void kscrollDown(int n){
                 kclearRow(i);
         }
 
-        kmoveCursor(cursorI, cursorJ-n);
+        kmoveCursor(0, cursorJ-n);
 }
 
 // Puts a new line - PUBLIC
