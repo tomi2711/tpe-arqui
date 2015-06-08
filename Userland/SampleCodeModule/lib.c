@@ -29,7 +29,7 @@ int strlen(char* str){
 
     int i = 0;
 
-    while(str[i++]!= 0);
+    while(str[i++] != '\0');
 
     return (i-1);
 }
@@ -80,4 +80,69 @@ void itoa_d(int n, char s[])
      }
      s[i] = '\0';
      reverse(s);
+}
+
+bool strEquals(char* str1, char* str2){
+
+    if(strlen(str1) != strlen(str2)){
+        return FALSE;
+    }else{
+        for(int i=0;i<strlen(str1); i++){
+            if(str1[i] != str2[i]){
+                return FALSE;
+            }
+        }
+    }
+
+    return TRUE;
+}
+
+
+char* firstWord(char* str){
+
+  int i=0;
+  for(i=0; (str[i] != ' ' && str[i] != '\0');i++);
+  return strcut(str,0,i-1);
+}
+
+int numWords(char* str){
+
+    if(str[0] == '\0'){
+        return 0;
+    }
+
+    int counter = 1;
+
+    for(int i=0;i<strlen(str);i++){
+        if(str[i] == ' '){
+            counter++;
+        }
+    }
+
+    return counter;
+}
+
+char* strcut(char* str, int start, int end){
+    char* newstr;
+    int i = 0;
+    if((start<end) && (end < strlen(str))){
+        for(i = start; i<=end; i++){
+            newstr[i-start]=str[i];
+        }
+        newstr[i-start]='\0';
+    }
+
+    return newstr;
+}
+
+
+char* strcat(char *dest, const char *src)
+{
+    int i,j;
+    for (i = 0; dest[i] != '\0'; i++)
+        ;
+    for (j = 0; src[j] != '\0'; j++)
+        dest[i+j] = src[j];
+    dest[i+j] = '\0';
+    return dest;
 }

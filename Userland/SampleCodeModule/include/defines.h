@@ -1,6 +1,14 @@
 #ifndef __TomiOS__DEFINES__
 #define __TomiOS__DEFINES__
 
+typedef unsigned char bool;
+#define TRUE 1
+#define FALSE 0
+
+#define MAX_INT 32767
+
+#define TOTAL_COMMANDS 3
+
 typedef enum SYSTEM_CALLS {
         WRITE,
         READ,
@@ -18,5 +26,13 @@ typedef struct U_DATE {
   unsigned char month;
   unsigned char year;
 } DATE;
+
+typedef struct CommandDesc{
+  char* key;
+  char* (*action)(char*);
+  int argc;
+  char* use;
+} CommandDescriptor;
+
 
 #endif

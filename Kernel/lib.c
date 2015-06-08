@@ -144,6 +144,6 @@ void kRead(char* buffer, char delimiter){
 
 		} while (c != delimiter);
 
-		buffer[i] = 0;
+		buffer[i-1] = '\0';
 
 }
