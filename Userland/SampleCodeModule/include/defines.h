@@ -36,8 +36,8 @@ typedef struct CommandDesc{
   char* use;
 } CommandDescriptor;
 
-char* days[7] = {"Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
-char* months[12] = {"January","February","March","April","May","June","July","August","September","October",
+char* daysName[7] = {"Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+char* monthsName[12] = {"January","February","March","April","May","June","July","August","September","October",
                       "November","December"};
 
 

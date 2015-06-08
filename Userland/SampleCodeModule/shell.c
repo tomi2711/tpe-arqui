@@ -91,7 +91,7 @@ int time(char* args){
   if(strlen(args)==0){
     DATE date;
     getTime(&date);
-    printf("%s %s %d 20%d, %d:%d:%d",days[date.d_week],months[date.month],date.d_month,date.year, date.hour, date.minute, date.second);
+    printf("%s %s %d 20%d, %d:%d:%d",daysName[date.d_week],monthsName[date.month],date.d_month,date.year, date.hour, date.minute, date.second);
   } else {
     printf("%s is not a time command.", args);
   }
@@ -111,8 +111,6 @@ int clear(char* args){
 }
 
 int help(char* args){
-	char* message;
-	message[0] = '\0';
 	for(int i=0; i<TOTAL_COMMANDS;i++){
     printf("- %s: %s\n",commands[i].key, commands[i].use);
 	}
