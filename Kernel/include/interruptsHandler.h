@@ -6,8 +6,10 @@
 #include "keyboard.h"
 #include "display.h"
 #include "rtc.h"
+#include "screensaver.h"
 
 void keyboardHandler();
 void syscallHandler(ddword a, ddword b, ddword c, ddword d);
+void TTHandler();
 
 #endif

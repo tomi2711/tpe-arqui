@@ -13,13 +13,12 @@ typedef unsigned long ddword;
 #define SCREEN_WIDTH     80
 #define SCREEN_HEIGHT 25
 
-#define CURSOR_BLOCK  0x00
-#define CURSOR_LINE 0x0E
-#define NO_CURSOR 0x10
-
 #define IDT_SIZE 256
 
 #define PIC_DATA_PORT      0x21
+
+#define TICK_INTERVAL   55
+#define DEFAULT_SCREENSAVER_TIME 10000
 
 #define KEYBOARD_DATA_PORT 0x60
 #define KEYBOARD_STATUS_PORT 0x64
@@ -39,6 +38,12 @@ typedef unsigned long ddword;
 #define SPACEBAR            0x20
 
 #define EMPTY 0xFF
+
+typedef enum CURSOR_STYLE{
+  CURSOR_BLOCK = 0x00,
+  CURSOR_LINE = 0x0E,
+  NO_CURSOR = 0x10
+} CursorStyle;
 
 typedef struct KB_STATUS {
         bool shiftEnabled;
@@ -85,6 +90,15 @@ typedef enum SYSTEM_CALLS {
 
 #define RTC_PORT		0x70
 #define RTC_REGISTER_PORT	0x71
+
+typedef struct BACKUPSCREEN {
+  char display[SCREEN_WIDTH*SCREEN_HEIGHT*2];
+  int cursorI;
+  int cursorJ;
+  int backspaceLimitI;
+  int backspaceLimitJ;
+  CursorStyle cursorStyle;
+} BackupScreen;
 
 typedef struct U_DATE {
   unsigned char second;

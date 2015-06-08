@@ -8,11 +8,40 @@ char *video = (char*) 0xB8000;
 int screenWidth = SCREEN_WIDTH;
 int screenHegiht = SCREEN_HEIGHT;
 
+CursorStyle cursorStyle = CURSOR_BLOCK;
+
 int cursorI = 0;
 int cursorJ = 0;
 
 int backspaceLimitI = 0;
 int backspaceLimitJ = 0;
+
+BackupScreen backup;
+
+void kBackupScreen(){
+  int i = 0;
+
+  for(i= 0; i < SCREEN_WIDTH * SCREEN_HEIGHT * 2; i++){
+      backup.display[i] = video[i];
+  }
+  backup.cursorI = cursorI;
+  backup.cursorJ = cursorJ;
+  backup.backspaceLimitI = backspaceLimitI;
+  backup.backspaceLimitJ = backspaceLimitJ;
+}
+
+void kRestoreScreen(){
+  int i = 0;
+
+  for(i=0;i< SCREEN_WIDTH*SCREEN_HEIGHT*2;i++){
+      video[i] = backup.display[i];
+  }
+
+  ksetCursorStyle(backup.cursorStyle);
+  kmoveCursor(backup.cursorI, backup.cursorJ);
+  backspaceLimitI = backup.backspaceLimitI;
+  backspaceLimitJ = backup.backspaceLimitJ;
+}
 
 // Updates cursor on screen
 
@@ -238,7 +267,7 @@ void ksetDefaultTextColor(Color color){
         defaultTextColor = color;
 }
 
-void ksetCursorStyle(unsigned char style){
+void ksetCursorStyle(CursorStyle style){
         kout(0x3D4, 0x0A);
         kout(0x3D5, (unsigned char)(style&0xFF));
 }

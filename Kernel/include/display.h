@@ -31,6 +31,10 @@ int kgetScreenWidth();
 // Theming
 void ksetBackgroundColor(Color color);
 void ksetDefaultTextColor(Color color);
-void ksetCursorStyle(unsigned char style);
+void ksetCursorStyle(CursorStyle style);
+
+// Screensaver
+void kBackupScreen();
+void kRestoreScreen();
 
 #endif

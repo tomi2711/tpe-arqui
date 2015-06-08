@@ -2,17 +2,19 @@
 
 void keyboardHandler(void) {
 
-        unsigned char status;
-        unsigned char keycode;
+        unsigned char status = kin(KEYBOARD_STATUS_PORT);
+        unsigned char keycode = kin(KEYBOARD_DATA_PORT);
 
-        status = kin(KEYBOARD_STATUS_PORT);
+        if(isScreenSaverShowing()){
+            stopScreenSaver();
+            return;
+        }
 
         if (status && 0x01) {
-
-                keycode = kin(KEYBOARD_DATA_PORT);
-
                 kKBKeyReceived(keycode);
         }
+
+        resetTime();
 }
 
 void syscallHandler(ddword a, ddword b, ddword c, ddword d){
@@ -38,4 +40,8 @@ void syscallHandler(ddword a, ddword b, ddword c, ddword d){
         default:
                 break;
         }
+}
+
+void TTHandler(){
+    screenSaverTick();
 }

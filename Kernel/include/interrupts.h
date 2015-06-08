@@ -12,5 +12,6 @@ extern void kGetIDTR(IDTR* idtr);
 
 extern void keyboardInterruptHandler();
 extern void syscallInterruptHandler();
+extern void TTInterruptHandler();
 
 #endif /* defined(__TomiOS__interrupt__) */

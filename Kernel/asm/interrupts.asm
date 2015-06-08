@@ -5,9 +5,11 @@ GLOBAL kGetIDTR
 
 GLOBAL keyboardInterruptHandler
 GLOBAL syscallInterruptHandler
+GLOBAL TTInterruptHandler
 
 EXTERN keyboardHandler
 EXTERN syscallHandler
+EXTERN TTHandler
 
 section .text
 
@@ -39,6 +41,12 @@ kSetHandler:
 	ret
 
 ; Handlers
+
+TTInterruptHandler:
+	call TTHandler
+	mov 	al, 0x20
+	out 	0x20, al
+	iretq
 
 keyboardInterruptHandler:
   call    keyboardHandler
