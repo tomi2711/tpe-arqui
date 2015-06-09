@@ -82,6 +82,9 @@ typedef enum COLOR {
         WHITE
 } Color;
 
+#define DEFAULT_TEXT_COLOR LIGHT_GRAY
+#define DEFAULT_BG_COLOR BLACK
+
 typedef enum SYSTEM_CALLS {
         WRITE = 0x4,
         READ = 0x3,

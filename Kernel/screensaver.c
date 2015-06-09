@@ -34,15 +34,19 @@ void screenSaverTick(){
 }
 
 void startScreenSaver(){
+    ksetBackgroundColor(CYAN);
+    ksetDefaultTextColor(BLUE);
     isShowing = TRUE;
     miliseconds = 0;
-    ksetCursorStyle(NO_CURSOR);
     kclearScreen();
+    ksetCursorStyle(NO_CURSOR);
     updateScreen();
 }
 
 void stopScreenSaver(){
     isShowing = FALSE;
+    ksetBackgroundColor(DEFAULT_BG_COLOR);
+    ksetDefaultTextColor(DEFAULT_TEXT_COLOR);
     kRestoreScreen();
     miliseconds = 0;
 }

@@ -1,7 +1,7 @@
 #include "display.h"
 
-Color backgroundColor = BLACK;
-Color defaultTextColor = LIGHT_GRAY;
+Color backgroundColor = DEFAULT_BG_COLOR;
+Color defaultTextColor = DEFAULT_TEXT_COLOR;
 
 char *video = (char*) 0xB8000;
 
