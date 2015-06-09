@@ -33,7 +33,15 @@ int screensaver(char* args){
 void handle(char* key, char* value){
 
   if(strEquals(key, "-timeout")){
+    if(strlen(value)==0){
+      printf("No value entered.");
+      return;
+    }
     unsigned int timeout = (unsigned int) atoi(value);
+    if(timeout == -1){
+      printf("The value entered is not a number.");
+      return;
+    }
     if(timeout>MAX_SCREENSAVER_TIME){
       printf("The time is too long.");
       return;
