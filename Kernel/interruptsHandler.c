@@ -1,5 +1,7 @@
 #include "interruptsHandler.h"
 
+int character = 0x0;
+
 void keyboardHandler(void) {
 
         unsigned char status = kin(KEYBOARD_STATUS_PORT);
@@ -9,9 +11,9 @@ void keyboardHandler(void) {
             stopScreenSaver();
             return;
         }
-
-        if (status && 0x01) {
-                kKBKeyReceived(keycode);
+        
+        if (status &  0x01) {
+            kKBKeyReceived(keycode);
         }
 
         resetTime();

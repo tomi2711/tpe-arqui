@@ -8,6 +8,8 @@ void shellLine();
 int echo(char* args);
 int clear(char* args);
 int help(char* args);
+int hello(char* args);
+int version(char* args);
 
 CommandDescriptor commands[TOTAL_COMMANDS];
 
@@ -33,22 +35,37 @@ void initCommandList(){
 	commands[0].key = "echo";
 	commands[0].handler = &echo;
 	commands[0].use = "Repeats text following command.";
+  commands[0].hidden = FALSE;
 
 	commands[1].key = "clear";
 	commands[1].handler = &clear;
 	commands[1].use = "Cleans the terminal screen.";
+  commands[1].hidden = FALSE;
 
 	commands[2].key = "help";
 	commands[2].handler = &help;
 	commands[2].use = "Displays list of commands.";
+  commands[2].hidden = FALSE;
 
   commands[3].key = "time";
   commands[3].handler = &time;
   commands[3].use = "Displays current time. And allows to change it. See time -help.";
+  commands[3].hidden = FALSE;
 
   commands[4].key = "screensaver";
   commands[4].handler = &screensaver;
   commands[4].use = "Configures the screensaver.";
+  commands[4].hidden = FALSE;
+
+  commands[5].key = "hello";
+  commands[5].handler = &hello;
+  commands[5].use = "Hello, human.";
+  commands[5].hidden = TRUE;
+
+  commands[6].key = "version";
+  commands[6].handler = &version;
+  commands[6].use = "System version.";
+  commands[6].hidden = FALSE;
 }
 
 void shellLine(){
@@ -101,9 +118,21 @@ int clear(char* args){
 	return 1;
 }
 
+int hello(char* args){
+  printf("Hello, human.");
+  return 0;
+}
+
+int version(char* args){
+  printf("tOS v.0.1");
+  return 0;
+}
+
 int help(char* args){
 	for(int i=0; i<TOTAL_COMMANDS;i++){
-    printf("- %s: %s\n",commands[i].key, commands[i].use);
+    if(commands[i].hidden == FALSE){
+      printf("- %s: %s\n",commands[i].key, commands[i].use);
+    }
 	}
 	return 0;
 }

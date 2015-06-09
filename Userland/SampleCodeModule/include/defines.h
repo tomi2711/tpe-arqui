@@ -5,7 +5,7 @@ typedef unsigned char bool;
 #define TRUE 1
 #define FALSE 0
 
-#define TOTAL_COMMANDS 5
+#define TOTAL_COMMANDS 7
 
 #define MAX_COMMAND_LENGTH 50
 #define MAX_ARGUMENTS_LENGTH 150
@@ -59,6 +59,7 @@ typedef struct CommandDesc {
         char* key;
         action handler;
         char* use;
+        bool hidden;
 } CommandDescriptor;
 
 #endif

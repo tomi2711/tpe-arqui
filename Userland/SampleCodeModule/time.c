@@ -107,59 +107,65 @@ char validate(DateModifiers modifier, char* value){
 void printHelp(){
 
   printf("The available commands are: \n\n");
-  printf("\t-setsecond\t\tSets the system's current seconds.\n");
-  printf("\t-setminute\t\tSets the system's current minutes.\n");
-  printf("\t-sethour\t\tSets the system's current hour.\n");
-  printf("\t-setdate\t\tSets the system's current date.\n");
-  printf("\t-setmonth\t\tSets the system's current month.\n");
-  printf("\t-setyear\t\tSets the system's current year. Format: YY.\n");
+  printf("\t-ssecond\t\tSets the system's current seconds.\n");
+  printf("\t-sminute\t\tSets the system's current minutes.\n");
+  printf("\t-shour\t\tSets the system's current hour.\n");
+  printf("\t-sdate\t\tSets the system's current date.\n");
+  printf("\t-smonth\t\tSets the system's current month.\n");
+  printf("\t-syear\t\tSets the system's current year. Format: YY.\n");
   printf("\n");
 
 }
 
 int handleTime(char* key, char* value){
 
-      if(strEquals(key, "-setsecond")){
+      if(strEquals(key, "-ssecond")){
           char input = validate(SECOND, value);
           if(input>=0){
              newDate.second = input;
           } else {
             printf("Illegal input in %s. ",key);
+            return TIME_NOT_CHANGED;
           }
-      } else if(strEquals(key, "-setminute")) {
+      } else if(strEquals(key, "-sminute")) {
           char input = validate(MINUTE, value);
           if(input>=0){
              newDate.minute = input;
           } else {
             printf("Illegal input in %s. ",key);
+            return TIME_NOT_CHANGED;
           }
-      } else if(strEquals(key, "-sethour")) {
+      } else if(strEquals(key, "-shour")) {
           char input = validate(HOUR, value);
           if(input>=0){
              newDate.hour = input;
           } else {
             printf("Illegal input in %s. ",key);
+            return TIME_NOT_CHANGED;
           }
-      } else if(strEquals(key, "-setdate")) {
+      } else if(strEquals(key, "-sdate")) {
           char input = validate(D_MONTH, value);
           if(input>=0){
              newDate.d_month = input;
           } else {
             printf("Illegal input in %s. ",key);
+            return TIME_NOT_CHANGED;
           }
-      } else if(strEquals(key, "-setmonth")) {
+      } else if(strEquals(key, "-smonth")) {
           char input = validate(MONTH, value);
           if(input>=0){
              newDate.month = input;
           } else {
             printf("Illegal input in %s. ",key);
+            return TIME_NOT_CHANGED;
           }
-      } else if(strEquals(key, "-setyear")) {
+      } else if(strEquals(key, "-syear")) {
           char input = validate(YEAR, value);
           if(input>=0){
              newDate.year = input;
           } else {
             printf("Illegal input in %s. ",key);
+            return TIME_NOT_CHANGED;
           }
       } else if (strEquals(key, "-help")){
         printHelp();
@@ -171,17 +177,3 @@ int handleTime(char* key, char* value){
 
     return TIME_CHANGED;
 }
-
-
-
-/*
-typedef struct U_DATE {
-        unsigned char second;
-        unsigned char minute;
-        unsigned char hour;
-        unsigned char d_week;
-        unsigned char d_month;
-        unsigned char month;
-        unsigned char year;
-} DATE;
-*/

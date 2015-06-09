@@ -119,7 +119,7 @@ void split(char* buffer, char* command, char* arguments){
     c = buffer[i];
     command[i++] = c;
 
-    if(c == ' ')
+    if(c == ' ' || i == (MAX_COMMAND_LENGTH-1))
       break;
 
   } while( c != 0);
