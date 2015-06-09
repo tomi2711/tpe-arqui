@@ -3,6 +3,7 @@
 
 #include "lib.h"
 #include "defines.h"
+#include "screensaver.h"
 
 void shell();
 

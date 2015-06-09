@@ -81,11 +81,12 @@ typedef enum COLOR {
 } Color;
 
 typedef enum SYSTEM_CALLS {
-        WRITE,
-        READ,
-        CLEAR_SCREEN,
-        GET_TIME,
-        SET_TIME
+        WRITE = 0x4,
+        READ = 0x3,
+        CLEAR_SCREEN = 0x2,
+        GET_TIME = 0xD,
+        SET_TIME = 0x19,
+        SET_SCREENSAVER_TIME = 0x22
 } SYSCALLS;
 
 #define RTC_PORT		0x70

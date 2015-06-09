@@ -10,9 +10,9 @@ int clear(char* args);
 int help(char* args);
 int time(char* args);
 
-/*char* daysName[7] = {"Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+char* daysName[7] = {"Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 char* monthsName[12] = {"January","February","March","April","May","June","July","August","September","October",
-                      "November","December"};*/
+                      "November","December"};
 
 CommandDescriptor commands[TOTAL_COMMANDS];
 
@@ -21,7 +21,7 @@ void shell(){
   DATE date;
 	getTime(&date);
 
-	printf("Boot time: %d:%d\n", date.hour, date.minute);
+	printf("Boot time: %n:%n\n", date.hour, date.minute);
 
 	char buffer[100];
 	initCommandList();
@@ -50,6 +50,10 @@ void initCommandList(){
   commands[3].key = "time";
   commands[3].handler = &time;
   commands[3].use = "Displays current time.";
+
+  commands[4].key = "screensaver";
+  commands[4].handler = &screensaver;
+  commands[4].use = "Configures the screensaver.";
 }
 
 void shellLine(){
@@ -61,11 +65,11 @@ void processAction(char* buffer){
   char command[MAX_COMMAND_LENGTH];
   char arguments[MAX_ARGUMENTS_LENGTH];
 
-  split_args(buffer, command, arguments);
-
-  if(strlen(command) == 0){
+  if(strlen(buffer) == 0){
     return;
   }
+
+  split(buffer, command, arguments);
 
   int commandId = commandSelector(command);
   int response = 0;
@@ -95,10 +99,11 @@ int time(char* args){
   if(strlen(args)==0){
     DATE date;
     getTime(&date);
-    printf("%d/%d/20%d - %d:%d:%d",date.d_month,date.month,date.year, date.hour, date.minute, date.second);
+    printf("%s %d %s 20%n - %n:%n:%n",daysName[date.d_week],date.d_month,monthsName[date.month],date.year, date.hour, date.minute, date.second);
   } else {
     printf("%s is not a time command.", args);
   }
+
   return 0;
 }
 

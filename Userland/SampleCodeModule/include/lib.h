@@ -20,17 +20,21 @@ char getChar();
 // Time
 void getTime(DATE * date);
 void setTime(unsigned char timeModifier, unsigned char value);
+void setScreenSaverTime(int miliseconds);
 
 // Helpers
-void split_args(char* buffer, char* command, char* arguments);
+void split(char* buffer, char* command, char* arguments);
 int numberLength (int i);
 int strlen(char* str);
 void itoa(int n, char* s);
+void itoa_d(int n, char* s);
+int atoi(const char * str);
 bool strEquals(char* str1, char* str2);
 char* strcut(char* str, int start, int end);
 char* firstWord(char* str);
 int numWords(char* str);
 char* strcat(char* str1, const char* str2);
-
+void moveToBegining(char* buffer, int index);
+void clean(char* buffer, int size);
 
 #endif

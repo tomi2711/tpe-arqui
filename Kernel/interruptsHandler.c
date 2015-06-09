@@ -37,6 +37,8 @@ void syscallHandler(ddword a, ddword b, ddword c, ddword d){
                 break;
         case SET_TIME:
                 break;
+        case SET_SCREENSAVER_TIME:
+                setScreenSaverTime((int)d);
         default:
                 break;
         }
