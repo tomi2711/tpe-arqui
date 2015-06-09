@@ -36,6 +36,7 @@ void syscallHandler(ddword a, ddword b, ddword c, ddword d){
                 getCurrentDate((DATE*) c);
                 break;
         case SET_TIME:
+                setCurrentDate((DATE*) c);
                 break;
         case SET_SCREENSAVER_TIME:
                 setScreenSaverTime((int)d);

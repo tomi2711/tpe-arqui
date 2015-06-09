@@ -19,7 +19,7 @@ char getChar();
 
 // Time
 void getTime(DATE * date);
-void setTime(unsigned char timeModifier, unsigned char value);
+void setTime(DATE * date);
 void setScreenSaverTime(int miliseconds);
 
 // Helpers

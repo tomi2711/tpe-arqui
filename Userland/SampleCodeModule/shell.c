@@ -8,11 +8,6 @@ void shellLine();
 int echo(char* args);
 int clear(char* args);
 int help(char* args);
-int time(char* args);
-
-char* daysName[7] = {"Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
-char* monthsName[12] = {"January","February","March","April","May","June","July","August","September","October",
-                      "November","December"};
 
 CommandDescriptor commands[TOTAL_COMMANDS];
 
@@ -23,7 +18,7 @@ void shell(){
 
 	printf("Boot time: %n:%n\n", date.hour, date.minute);
 
-	char buffer[100];
+	char buffer[200];
 	initCommandList();
 
 	while(1){
@@ -49,7 +44,7 @@ void initCommandList(){
 
   commands[3].key = "time";
   commands[3].handler = &time;
-  commands[3].use = "Displays current time.";
+  commands[3].use = "Displays current time. And allows to change it. See time -help.";
 
   commands[4].key = "screensaver";
   commands[4].handler = &screensaver;
@@ -92,19 +87,6 @@ int commandSelector(char* command){
 		}
 	}
 	return -1;
-}
-
-int time(char* args){
-
-  if(strlen(args)==0){
-    DATE date;
-    getTime(&date);
-    printf("%s %d %s 20%n - %n:%n:%n",daysName[date.d_week],date.d_month,monthsName[date.month],date.year, date.hour, date.minute, date.second);
-  } else {
-    printf("%s is not a time command.", args);
-  }
-
-  return 0;
 }
 
 int echo(char* args){

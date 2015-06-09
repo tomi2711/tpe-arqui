@@ -18,6 +18,15 @@ void getCurrentDate(DATE* date){
 	date->year = kgetYear();
 };
 
+void setCurrentDate(DATE* date){
+	ksetSecond(date->second);
+	ksetMinute(date->minute);
+	ksetHour(date->hour);
+	ksetDayOfMonth(date->d_month);
+	ksetMonth(date->month);
+	ksetYear(date->year);
+}
+
 void kinitRTC(){
 	ksetRTCConfig(RTC_SETUP_B,2,1);
 }
@@ -25,6 +34,38 @@ void kinitRTC(){
 unsigned char kaccessRTC(unsigned char data){
 	kout(RTC_PORT, data);
 	kin(RTC_REGISTER_PORT);
+}
+
+void kwriteRTC(unsigned char data, unsigned char rtc_modifier){
+		if(data==0xFF)
+			return;
+
+		kout(RTC_PORT, rtc_modifier);
+		kout(RTC_REGISTER_PORT, data);
+}
+
+void ksetSecond(unsigned char data){
+		kwriteRTC(data, RTC_SECOND);
+}
+
+void ksetMinute(unsigned char data){
+		kwriteRTC(data, RTC_MINUTE);
+}
+
+void ksetHour(unsigned char data){
+		kwriteRTC(data, RTC_HOUR);
+}
+
+void ksetDayOfMonth(unsigned char data){
+		kwriteRTC(data, RTC_D_MONTH);
+}
+
+void ksetMonth(unsigned char data){
+		kwriteRTC(data, RTC_MONTH);
+}
+
+void ksetYear(unsigned char data){
+		kwriteRTC(data, RTC_YEAR);
 }
 
 unsigned char kgetSecond(){

@@ -7,11 +7,11 @@ typedef unsigned char bool;
 
 #define TOTAL_COMMANDS 5
 
-#define MAX_COMMAND_LENGTH 30
-#define MAX_ARGUMENTS_LENGTH 80
+#define MAX_COMMAND_LENGTH 50
+#define MAX_ARGUMENTS_LENGTH 150
 
-#define MAX_VALUE_SIZE 20
-#define MAX_KEY_SIZE  20
+#define MAX_VALUE_SIZE 25
+#define MAX_KEY_SIZE  25
 
 #define MAX_SCREENSAVER_TIME 999999999
 #define MIN_SCREENSAVER_TIME 1000
@@ -40,6 +40,18 @@ typedef struct U_DATE {
         unsigned char month;
         unsigned char year;
 } DATE;
+
+typedef enum DATE_MODIFIERS {
+	SECOND = 0,
+	MINUTE = 2,
+	HOUR = 4,
+	D_MONTH = 7,
+	MONTH = 8,
+	YEAR = 9,
+} DateModifiers;
+
+#define TIME_NOT_CHANGED 0
+#define TIME_CHANGED 1
 
 typedef int (*action)(char*);
 

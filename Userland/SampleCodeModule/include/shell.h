@@ -4,6 +4,7 @@
 #include "lib.h"
 #include "defines.h"
 #include "screensaver.h"
+#include "time.h"
 
 void shell();
 

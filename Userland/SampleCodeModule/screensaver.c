@@ -1,6 +1,6 @@
 #include "screensaver.h"
 
-void handle(char* key, char* value);
+void handleSS(char* key, char* value);
 
 int screensaver(char* args){
 
@@ -9,12 +9,12 @@ int screensaver(char* args){
     return 0;
   }
 
-  char key[20];
-  char value[20];
+  char key[MAX_KEY_SIZE];
+  char value[MAX_VALUE_SIZE];
 
   while(strlen(args)!=0){
 
-    clean(value, 20);
+    clean(value, MAX_VALUE_SIZE);
 
     int code = split_args(args,key,value);
 
@@ -23,14 +23,14 @@ int screensaver(char* args){
       return 0;
     }
 
-    handle(key, value);
+    handleSS(key, value);
   }
 
   return 0;
 
 }
 
-void handle(char* key, char* value){
+void handleSS(char* key, char* value){
 
   if(strEquals(key, "-timeout")){
     if(strlen(value)==0){

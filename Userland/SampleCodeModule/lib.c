@@ -95,8 +95,8 @@ void getTime(DATE * date){
         runSyscall(GET_TIME, 0x0, date, 0x0);
 }
 
-void setTime(unsigned char timeModifier, unsigned char value){
-        runSyscall(SET_TIME, 0x0, value, timeModifier);
+void setTime(DATE * date){
+        runSyscall(SET_TIME, 0x0, date, 0x0);
 }
 
 void clearScreen(){
