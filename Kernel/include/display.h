@@ -24,6 +24,9 @@ void kcursorTick();
 void kputChar(char c);
 void kputString(char* str);
 
+// Move cursor
+void kmoveCursor(int x, int y);
+
 // Screen height and width in number of lines
 int kgetScreenHeight();
 int kgetScreenWidth();

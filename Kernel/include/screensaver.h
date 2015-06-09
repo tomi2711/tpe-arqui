@@ -11,5 +11,9 @@ void stopScreenSaver();
 void setScreenSaverTime(int time);
 bool isScreenSaverShowing();
 void resetTime();
+void showRandomScreensaver();
+ScreenSaver newScreenSaver(char* phrase, char* author);
+void kinitScreenSaver();
+
 
 #endif

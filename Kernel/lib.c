@@ -145,3 +145,7 @@ void kRead(char* buffer, int count){
 		} while(i<count);
 
 }
+
+int krandom(int max){
+	return (int)(kgetSecond())%max;
+}

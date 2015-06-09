@@ -5,6 +5,7 @@
 #include <naiveConsole.h>
 #include "include/display.h"
 #include "include/idt.h"
+#include "include/screensaver.h"
 
 extern uint8_t text;
 extern uint8_t rodata;
@@ -87,6 +88,7 @@ int main()
 	kInitializeDisplay();
 	kIDTInitialize();
 	kinitRTC();
+	kinitScreenSaver();
 
 	((EntryPoint)sampleCodeModuleAddress)();
 

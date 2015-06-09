@@ -19,6 +19,8 @@ typedef unsigned long ddword;
 
 #define TICK_INTERVAL   55
 #define DEFAULT_SCREENSAVER_TIME 10000
+#define SCREENSAVER_CHANGE_TIME 5000
+#define NUM_SCREENSAVERS 11
 
 #define KEYBOARD_DATA_PORT 0x60
 #define KEYBOARD_STATUS_PORT 0x64
@@ -121,5 +123,11 @@ enum RTC_CONVERSION {
 	RTC_YEAR = 9,
 	RTC_SETUP_B = 0xB
 };
+
+typedef struct SCREENSAVER{
+  char* phrase;
+  char* author;
+} ScreenSaver;
+
 
 #endif /* defined(__TomiOS__types__) */
